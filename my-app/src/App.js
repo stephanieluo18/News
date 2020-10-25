@@ -6,10 +6,15 @@ import "./skeleton.css";
 import { v4 as uuidv4 } from "uuid";
 //import logo from './logo.svg';
 import "./App.css";
+import { render } from "react-dom";
+import Filter from "./Components/Filter.js";
 
 function App() {
   const [query, setQuery] = useState("");
   const [articles, setArticles] = useState("");
+  const [Filters, setFilters] = useState({
+    topic: [],
+  });
   const url =
     "https://newsapi.org/v2/everything?q=${query}&apiKey=7a24ab3bcf634857bbdd7a59206a6778";
 
@@ -27,6 +32,14 @@ function App() {
     e.preventDefault();
     getData();
   };
+
+  const handleFilters = (filters, category) => {
+    console.log(filters);
+    const newFilters = { ...Filters };
+    newFilters[category] = filters;
+    setFilters(newFilters);
+  };
+
   return (
     <div className="App">
       <h1 onClick={getData}> News</h1>
@@ -40,6 +53,7 @@ function App() {
         />
         <input type="submit" value="Search" />
       </form>
+      <Filter handleFilters={(filters) => handleFilters(filters, "topic")} />
       <div className="articles">
         {articles != [] &&
           articles.map((article) => (
@@ -50,4 +64,5 @@ function App() {
   );
 }
 
+render(<App />, document.getElementById("root"));
 export default App;
