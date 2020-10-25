@@ -47,8 +47,8 @@ function Filter(props) {
     ));
   return (
     <div>
-      <Collapse defaultActiveKey={["0"]}>
-        <Panel header key="1">
+      <Collapse defaultActiveKey={["1"]}>
+        <Panel header="hello" key="1">
           {renderCheckbox()}
         </Panel>
       </Collapse>

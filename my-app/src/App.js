@@ -15,10 +15,9 @@ function App() {
   const [Filters, setFilters] = useState({
     topic: [],
   });
-  const url =
-    "https://newsapi.org/v2/everything?q=${query}&apiKey=7a24ab3bcf634857bbdd7a59206a6778";
 
   const getData = async () => {
+    const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
     const result = await Axios.get(url);
     setArticles(result.data.articles);
     console.log(result);
@@ -31,6 +30,7 @@ function App() {
   const onSubmit = (e) => {
     e.preventDefault();
     getData();
+    console.log("hello");
   };
 
   const handleFilters = (filters, category) => {
