@@ -8,19 +8,28 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import { render } from "react-dom";
 import Filter from "./Components/Filter.js";
+import Alert from "./Components/Alert.js";
 
 function App() {
   const [query, setQuery] = useState("");
   const [articles, setArticles] = useState("");
+  const [alert, setAlert] = useState("");
   const [Filters, setFilters] = useState({
     topic: [],
   });
 
   const getData = async () => {
     const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
+    if (query == "") {
+      setAlert("Please type in a keyword");
+    }
     const result = await Axios.get(url);
+    if (result.data.totalResults == 0) {
+      return setAlert("No articles found with such name");
+    }
     setArticles(result.data.articles);
     console.log(result);
+    setAlert("");
     setQuery("");
   };
 
@@ -44,6 +53,7 @@ function App() {
     <div className="App">
       <h1 onClick={getData}> News</h1>
       <form className="search-bar" onSubmit={onSubmit}>
+        {alert !== "" && <Alert alert={alert} />}
         <input
           type="text"
           placeholder="Search News"
