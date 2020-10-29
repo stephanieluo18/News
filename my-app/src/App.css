@@ -2,27 +2,67 @@
   width: 1300px;
   margin: 3rem;
   display: flex;
-  flex-direction: column;
-  background-color: #d3d3d3;
+  flex-direction: row;
+  background-color: #d6f2fe;
   padding: 2rem;
   position: relative;
   border-radius: 0.5rem;
-  box-shadow: 2rem 3rem 5rem #aaa;
+  box-shadow: 0.5rem 0.5rem 0.5rem #aaa;
 }
 
+.inline {
+  display: inline-block;
+  min-width: 165px;
+  max-height: 0px;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 70px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+}
 .article img {
-  border-radius: 0.5rem;
+  /*border-radius: 0.5rem;
   object-fit: cover;
   height: 250px;
   width: auto;
+  */
+  max-height: 350px;
+  display: flex;
+  justify-content: flex-end;
+  vertical-align: top;
+  width: 46%;
+  object-fit: contain;
 }
 
-.article a {
+.text {
+  display: inline-block;
+  width: 46%;
+  margin-right: 100px;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 10px;
+}
+
+.title {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.alert {
+  background-color: rgb(233, 72, 72);
+  width: 315px;
+  height: 43px;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+}
+
+.alert h3 {
   font-size: 1.8rem;
-  color: #40b48e;
-}
-
-.App {
-  margin: 20px;
-  max-width: 300px;
+  color: #fff;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
 }

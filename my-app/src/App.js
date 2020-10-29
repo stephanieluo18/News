@@ -4,10 +4,7 @@ import Article from "./Components/Article.js";
 import "./normalize.css";
 import "./skeleton.css";
 import { v4 as uuidv4 } from "uuid";
-//import logo from './logo.svg';
 import "./App.css";
-//import { render } from "react-dom";
-//import Filter from "./Components/Filter.js";
 import Alert from "./Components/Alert.js";
 import Select from "react-select";
 
@@ -19,9 +16,7 @@ function App() {
     value: "general",
     label: "General",
   });
-  const [sources, setSources] = useState("");
   const ids = [];
-  //console.log(dropdown.value);
   const labels = [
     {
       value: "general",
@@ -40,33 +35,42 @@ function App() {
       label: "Sports",
     },
   ];
-  //const [Filters, setFilters] = useState({
-  // topic: [],
-  //});
 
-  //const source = `https://newsapi.org/v2/sources?apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
-  //getRequest
-  //console.log(dropdown);
+  const [sort, setSort] = useState({
+    value: "publishedAt",
+    label: "Most Recent",
+  });
+
+  const dates = [
+    {
+      value: "publishedAt",
+      label: "Most Recent",
+    },
+    {
+      value: "relevancy",
+      label: "Most Relevant",
+    },
+    {
+      value: "popularity",
+      label: "Most Popular",
+    },
+  ];
+
   const getData = async () => {
-    const source = `https://newsapi.org/v2/sources?category=${dropdown.value}&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
+    const source = `https://newsapi.org/v2/sources?category=${dropdown.value}&apiKey=26d35504515e414c888efe04f5ba33e6`;
     const response = await fetch(source);
     const data = await response.json();
-    console.log(data.sources.length); //length of array
-    console.log(data.sources[0].id); // should display id of the first array
+    console.log(data);
+    //console.log(data.sources.length); //length of array
+    //console.log(data.sources[0].id); // should display id of the first array
     //fetch all possible ids and add it to sources of the url below
     for (let i = 0; i < data.sources.length; i++) {
       ids.push(data.sources[i].id); // array of the ids
     }
-    console.log(ids);
     let x = "";
     dropdown.value === "general" ? (x = "") : (x = ids.toString());
-    console.log(x);
 
-    //for (let i = 0; i < data.sources.length; i++) {
-    //console.log(ids[i].id);
-    //}
-
-    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=publishedAt&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
+    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=${sort.value}&pageSize=30&apiKey=26d35504515e414c888efe04f5ba33e6`;
     if (query === "") {
       return setAlert("Please type in a keyword");
     }
@@ -77,14 +81,9 @@ function App() {
       return setAlert("No articles found with such name");
     }
     setArticles(result.data.articles);
-    console.log(dropdown.value); //displays dropdown value
-    //console.log(result.data.articles);
-    console.log(result);
     setAlert("");
     //setQuery("");
   };
-
-  //const addId
 
   const onChange = (e) => {
     setQuery(e.target.value);
@@ -94,33 +93,41 @@ function App() {
     getData();
     console.log("hello");
   };
-  /** 
-  const handleFilters = (filters, category) => {
-    console.log(filters);
-    const newFilters = { ...Filters };
-    newFilters[category] = filters;
-    setFilters(newFilters);
-  };
-  */
 
   const handleChange = (event) => {
     setDropdown(event);
   };
 
+  const handleSort = (event) => {
+    setSort(event);
+  };
   return (
     <div className="App">
-      <h1 onClick={getData}> News</h1>
+      <div className="title">
+        <h1 onClick={getData}>Worldwide News</h1>
+      </div>
       <form className="search-bar" onSubmit={onSubmit}>
-        {alert !== "" && <Alert alert={alert} />}
-        <input
-          type="text"
-          placeholder="Search News"
-          autoComplete="off"
-          onChange={onChange}
-          value={query}
-        />
-        <Select value={dropdown} options={labels} onChange={handleChange} />
-        <input type="submit" value="Search" />
+        <div className="alertStyle">
+          {alert !== "" && <Alert alert={alert} />}
+        </div>
+        <div className="inline">
+          <input
+            type="text"
+            placeholder="Search News"
+            autoComplete="off"
+            onChange={onChange}
+            value={query}
+          />
+        </div>
+        <div className="inline">
+          <Select value={dropdown} options={labels} onChange={handleChange} />
+        </div>
+        <div className="inline">
+          <Select value={sort} options={dates} onChange={handleSort} />
+        </div>
+        <div className="inline">
+          <input type="submit" value="Search" />
+        </div>
       </form>
       <div className="articles">
         {articles != [] &&
@@ -132,5 +139,4 @@ function App() {
   );
 }
 
-//render(<App />, document.getElementById("root"));
 export default App;
