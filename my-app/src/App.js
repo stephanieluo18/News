@@ -20,8 +20,7 @@ function App() {
     label: "General",
   });
   const [sources, setSources] = useState("");
-  let ids = [];
-
+  const ids = [];
   //console.log(dropdown.value);
   const labels = [
     {
@@ -55,8 +54,19 @@ function App() {
     console.log(data.sources.length); //length of array
     console.log(data.sources[0].id); // should display id of the first array
     //fetch all possible ids and add it to sources of the url below
+    for (let i = 0; i < data.sources.length; i++) {
+      ids.push(data.sources[i].id); // array of the ids
+    }
+    console.log(ids);
+    let x = "";
+    dropdown.value === "general" ? (x = "") : (x = ids.toString());
+    console.log(x);
 
-    const url = `https://newsapi.org/v2/everything?q=${query}&sources=buzzfeed,mashable&sortBy=publishedAt&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
+    //for (let i = 0; i < data.sources.length; i++) {
+    //console.log(ids[i].id);
+    //}
+
+    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=publishedAt&apiKey=7a24ab3bcf634857bbdd7a59206a6778`;
     if (query === "") {
       return setAlert("Please type in a keyword");
     }
@@ -71,7 +81,7 @@ function App() {
     //console.log(result.data.articles);
     console.log(result);
     setAlert("");
-    setQuery("");
+    //setQuery("");
   };
 
   //const addId

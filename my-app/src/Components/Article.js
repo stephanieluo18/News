@@ -11,7 +11,7 @@ const Article = ({ article }) => {
   return (
     <div className="article">
       <h2>{title}</h2>
-      <h4>{author.length > 50 ? author[0].name : author}</h4>
+      <h4>{author}</h4>
       <h6> {date}</h6>
       <p>{description}</p>
       <a href={url} target="_blank" rel="noopener noreferrer">
