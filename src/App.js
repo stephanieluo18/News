@@ -9,6 +9,7 @@ import Select from "react-select";
 import Article from "./Components/Article.js";
 
 function App() {
+  //const newsapi = new NewsAPI('YOUR_API_KEY', { corsProxyUrl: 'https://cors-anywhere.herokuapp.com/' };
   const [query, setQuery] = useState("");
   const [articles, setArticles] = useState("");
   const [alert, setAlert] = useState("");
@@ -60,7 +61,7 @@ function App() {
   const getData = async () => {
     /* source url determines the possible related ids based on category */
     const source = `https://newsapi.org/v2/sources?category=${dropdown.value}&apiKey=26d35504515e414c888efe04f5ba33e6`;
-    const response = await fetch(source);
+    const response = await fetch("https://cors-anywhere.herokuapp.com/"+source, {mode: 'cors'});
     const data = await response.json();
     //console.log(data);
     //console.log(data.sources.length); //length of array
@@ -84,7 +85,7 @@ function App() {
     if (query === "") {
       return setAlert("Please type in a keyword");
     }
-    const result = await Axios.get(url);
+    const result = await Axios.get("https://cors-anywhere.herokuapp.com/"+url, {mode: 'cors'});
     //console.log(sources);
 
     /* if no results show, alert message is displayed */
