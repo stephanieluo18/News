@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import "./normalize.css";
-import "./skeleton.css";
-import "./App.css";
+import "./css/normalize.css";
+import "./css/skeleton.css";
+import "./css/App.css";
 import Alert from "./Components/Alert.js";
 import Select from "react-select";
 import Article from "./Components/Article.js";
 
 function App() {
-  //const newsapi = new NewsAPI('YOUR_API_KEY', { corsProxyUrl: 'https://cors-anywhere.herokuapp.com/' };
   const [query, setQuery] = useState("");
   const [articles, setArticles] = useState("");
   const [alert, setAlert] = useState("");
+
+  /* dropdown defaults to general category */
   const [dropdown, setDropdown] = useState({
     value: "general",
     label: "General",
   });
+
+  /* ids based on a specific category is populated here */
   const ids = [];
 
+  /* Dropdown options for different categories*/
   const labels = [
     {
       value: "general",
@@ -38,11 +42,13 @@ function App() {
     },
   ];
 
+  /* Defaults to Most recent articles*/
   const [sort, setSort] = useState({
     value: "publishedAt",
     label: "Most Recent",
   });
 
+    /* Dropdown options for different options to sort*/
   const dates = [
     {
       value: "publishedAt",
@@ -60,8 +66,9 @@ function App() {
 
   const getData = async () => {
     /* source url determines the possible related ids based on category */
-    const source = `https://newsapi.org/v2/sources?category=${dropdown.value}&apiKey=26d35504515e414c888efe04f5ba33e6`;
-    const response = await fetch("https://cors-anywhere.herokuapp.com/"+source, {mode: 'cors'});
+    const source = `https://newsapi.org/v2/sources?category=${dropdown.value}&apiKey=78b9d599c4f94f8fa3afb1a5458928d6`;
+    //const response = await fetch("https://cors-anywhere.herokuapp.com/"+source, {mode: 'cors'});
+    const response = await fetch(source);
     const data = await response.json();
     //console.log(data);
     //console.log(data.sources.length); //length of array
@@ -79,13 +86,14 @@ function App() {
     dropdown.value === "general" ? (x = "") : (x = ids.toString());
 
     /* main source to search for articles */
-    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=${sort.value}&pageSize=30&apiKey=26d35504515e414c888efe04f5ba33e6`;
+    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=${sort.value}&pageSize=30&apiKey=78b9d599c4f94f8fa3afb1a5458928d6`;
 
     /* if user does not enter anything, alert message will show*/
     if (query === "") {
       return setAlert("Please type in a keyword");
     }
-    const result = await Axios.get("https://cors-anywhere.herokuapp.com/"+url, {mode: 'cors'});
+    //const result = await Axios.get("https://cors-anywhere.herokuapp.com/"+url, {mode: 'cors'});
+    const result = await Axios.get(url);
     //console.log(sources);
 
     /* if no results show, alert message is displayed */
@@ -121,7 +129,7 @@ function App() {
   return (
     <div className="App">
       <div className="title">
-        <h1 onClick={getData}>Worldwide News</h1>
+        <h1>Worldwide News</h1>
       </div>
       <form className="search-bar" onSubmit={onSubmit}>
         <div className="alertStyle">

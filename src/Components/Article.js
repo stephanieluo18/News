@@ -20,7 +20,7 @@ const Article = ({ article }) => {
           <button type="button">View Article</button>
         </a>
       </div>
-      <img src={urlToImage} alt="Article" />
+      <img src={urlToImage} alt="Article Image cannot be displayed" />
     </div>
   );
 };
