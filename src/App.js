@@ -29,8 +29,8 @@ function App() {
       label: "General",
     },
     {
-      value: "business",
-      label: "Business",
+      value: "technology",
+      label: "Technology",
     },
     {
       value: "entertainment",
@@ -86,7 +86,7 @@ function App() {
     dropdown.value === "general" ? (x = "") : (x = ids.toString());
 
     /* main source to search for articles */
-    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=${sort.value}&pageSize=30&apiKey=78b9d599c4f94f8fa3afb1a5458928d6`;
+    const url = `https://newsapi.org/v2/everything?q=${query}&sources=${x}&sortBy=${sort.value}&pageSize=30&language=en&apiKey=78b9d599c4f94f8fa3afb1a5458928d6`;
 
     /* if user does not enter anything, alert message will show*/
     if (query === "") {
